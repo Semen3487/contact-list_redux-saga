@@ -14,18 +14,18 @@ function List({
   backToCreateContact,
   selectContactName
 }) {
-
-  // function toCreateContact() {
-  //   setFormState(initFormState);
-  // };
-
-  // const onEdit = (contact.id) => {
-    
-  // }
   
 
   const onDelete = (id) => {
     deleteContactName(id);
+  }
+
+  const onEdit = (contact) => {
+    selectContactName(contact)
+  }
+
+  const onCreate = (contact) => {
+    backToCreateContact(contact)
   }
   
   return (
@@ -37,20 +37,20 @@ function List({
                   key={contact.id}
                   contact={contact}
                   onDelete={onDelete}
-                  // onEdit={onSelect}
+                  onEdit={onEdit}
             />
           )
         })}
         </div>
         <button
-         onClick={backToCreateContact}
+         onClick={onCreate}
           >New</button>
       </div>
   )
 }
 
-const mapStateToProps = ({contacts}) => {
-  return {contacts}
+const mapStateToProps = (contacts) => {
+  return contacts
 }
 
 const mapDispatchToProps = {

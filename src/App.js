@@ -5,7 +5,7 @@ import List from './components/nameList/List';
 import NumberNames from './components/numberNames/NumberNames';
 import { connect } from 'react-redux';
 
-function App({contacts}) {
+function App({contacts, initFormState}) {
   return (
     <div className="container">
       <div className="content">
@@ -14,15 +14,17 @@ function App({contacts}) {
         </header>
         <main>
           <List />
-          <Form />
+          <Form 
+                key={initFormState.id}
+                onEdit={initFormState} />
         </main>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (contacts) => {
-  return contacts
+const mapStateToProps = (initialState) => {
+  return initialState 
 }
 
 export default connect(mapStateToProps)(App);

@@ -1,9 +1,10 @@
 import { 
-        ADD_CONTACT_NAME,
-        DELETE_CONTACT_NAME,
-        BACK_TO_CREATE_CONTACT,
-        SELECT_CONTACT_NAME,
-        } from '../actions/toListAction';
+  ADD_CONTACT_NAME,
+  DELETE_CONTACT_NAME,
+  BACK_TO_CREATE_CONTACT,
+  SELECT_CONTACT_NAME,
+  UPDATE_CONTACT_NAME,
+} from '../actions/toListAction';
 
 const initialState = {
   contacts: [
@@ -40,23 +41,29 @@ const initialState = {
 export default function toListReducer(state = initialState, {type, payload}) {
   switch (type) {
     case ADD_CONTACT_NAME: return {
-      ...state, contacts: [...state.contacts, payload],
-      initFormState: state.initFormState
+      ...state, 
+      contacts: [...state.contacts, payload],
+      initFormState: state.initFormState,
     };
     case DELETE_CONTACT_NAME: return {
-      ...state, contacts: [...state.contacts.filter((contact) => contact.id !== payload)],
-      initFormState: state.initFormState
+      ...state, 
+      contacts: [...state.contacts.filter((contact) => contact.id !== payload)],
+      initFormState: '',
     };
     case SELECT_CONTACT_NAME: return {
       ...state,
       initFormState: payload,
-    }
+    };
+    case UPDATE_CONTACT_NAME: return {
+      ...state,
+      contacts: [...state.contacts.map((contact) => contact.id !== payload.id ? contact : payload)],
+      initFormState: '',
+    };
     case BACK_TO_CREATE_CONTACT: return {
       ...state,
-      initFormState: state.initFormState
-    }
+      initFormState: payload,
+    };
     default: return state;
   }
 };
 
-//* вибір створення або оновлення контакту в формі

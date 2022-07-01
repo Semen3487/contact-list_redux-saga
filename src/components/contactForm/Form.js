@@ -3,14 +3,16 @@ import './Form.css';
 import { connect } from 'react-redux';
 import {
   addContactName,
-  deleteContactName
+  deleteContactName,
+  updateContactName
 } from '../../store/actions/toListAction';
 
 
 function Form({
     initFormState,
     addContactName,
-    deleteContactName
+    deleteContactName,
+    updateContactName
   }) {
 
   const [contact, setContact] = useState(initFormState);
@@ -25,12 +27,18 @@ function Form({
   
   const onSubmitForm = (event) => {
     event.preventDefault();
-    const newContact = {
-      id: Date.now(),
-      ...contact
+    if(!contact.id){
+        const newContact = {
+        id: Date.now(),
+        ...contact
+      }
+      addContactName(newContact);
+      setContact(initFormState);
+    }else{
+      updateContactName({...contact});
     }
-    addContactName(newContact);
-    setContact(initFormState);
+    
+    
   }
 
   function toClearField(event) {
@@ -111,7 +119,8 @@ const mapStateToProps = ({initFormState}) => {
 
 const mapDispatchToProps = {
   addContactName,
-  deleteContactName
+  deleteContactName,
+  updateContactName
 }
 
 
