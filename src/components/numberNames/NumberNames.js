@@ -1,7 +1,7 @@
 import React from 'react';
 import './NumberNames.css';
 
-function Number() {
+function Number({contacts}) {
   return (
     <div className='header'>
       <p>
@@ -10,7 +10,7 @@ function Number() {
         </span>
           contains
         <span className='contains-list'>
-          {/* {contacts} */}
+          {contacts}
         </span>   
           names
       </p>
