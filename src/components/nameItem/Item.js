@@ -1,16 +1,21 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteContactNameAction, selectContactName } from '../../store/actions/toListAction';
 import './Item.css';
 
 
-function Item({contact, onDelete, onEdit}) {
+function Item({contact}) {
+
+  const dispatch = useDispatch();
 
   const onContactDelete = (e) => {
     e.stopPropagation();
-    onDelete(contact.id);
+    dispatch(deleteContactNameAction(contact.id));
   }
 
-  const toEditContact = () => {
-    onEdit(contact);
+  const toEditContact = (e) => {
+    e.stopPropagation();
+    dispatch(selectContactName(contact));
   }
   
 

@@ -1,32 +1,40 @@
-import React from 'react';
+import React, { 
+  useEffect, 
+} from 'react';
 import './List.css';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Item from '../nameItem/Item';
 import { 
-  deleteContactName,
+  // deleteContactName,
   backToCreateContact,
-  selectContactName,
+  // selectContactName,
  } from '../../store/actions/toListAction';
+ import contactService from '../api/movie-service';
+import { getContactsSaga } from '../../sagas/contactSagas';
 
-function List({
-  contacts, 
-  deleteContactName, 
-  backToCreateContact,
-  selectContactName
-}) {
-  
+function List() {
 
-  const onDelete = (id) => {
-    deleteContactName(id);
-  }
+  const dispatch = useDispatch();
 
-  const onEdit = (contact) => {
-    selectContactName(contact)
-  }
+  const contacts = useSelector(state => state.contacts);
 
-  const onCreate = (contact) => {
-    backToCreateContact(contact)
-  }
+  useEffect(() => {
+    contactService.get('/')
+      .then(({data}) => dispatch(getContactsSaga(data)))
+      .catch(error => console.log(error))
+  },[dispatch])
+
+  // const onDelete = (id) => {
+  //   deleteContactName(id);
+  // };
+
+  // const onEdit = (contact) => {
+  //   selectContactName(contact)
+  // };
+
+  const newContact = () => {
+    dispatch(backToCreateContact())
+  };
   
   return (
     <div className='main-inner-list'>
@@ -36,28 +44,28 @@ function List({
             <Item 
                   key={contact.id}
                   contact={contact}
-                  onDelete={onDelete}
-                  onEdit={onEdit}
+                  // onDelete={onDelete}
+                  // onEdit={onEdit}
             />
           )
         })}
         </div>
         <button
-         onClick={onCreate}
+         onClick={newContact}
           >New</button>
       </div>
   )
 }
 
-const mapStateToProps = (contacts) => {
-  return contacts
-}
+// const mapStateToProps = (contacts) => {
+//   return contacts
+// }
 
-const mapDispatchToProps = {
-  deleteContactName,
-  backToCreateContact,
-  selectContactName
-}
+// const mapDispatchToProps = {
+//   deleteContactName,
+//   backToCreateContact,
+//   selectContactName
+// }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default List;

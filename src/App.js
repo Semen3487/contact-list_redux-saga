@@ -3,14 +3,18 @@ import './App.css';
 import Form from './components/contactForm/Form';
 import List from './components/nameList/List';
 import NumberNames from './components/numberNames/NumberNames';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function App({contacts, initFormState}) {
+function App() {
+
+  const {contacts, initFormState} = useSelector(state => state);
+  
+
   return (
     <div className="container">
       <div className="content">
         <header>
-          <NumberNames contacts ={contacts.length} />
+          <NumberNames number={contacts.length} />
         </header>
         <main>
           <List />
@@ -23,8 +27,5 @@ function App({contacts, initFormState}) {
   );
 };
 
-const mapStateToProps = (initialState) => {
-  return initialState 
-}
 
-export default connect(mapStateToProps)(App);
+export default App;
