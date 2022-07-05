@@ -20,7 +20,7 @@ function App() {
           <List />
           <Form 
                 key={initFormState.id}
-                onEdit={initFormState} />
+                initFormState={initFormState} />
         </main>
       </div>
     </div>

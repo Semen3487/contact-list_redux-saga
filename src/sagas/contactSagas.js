@@ -1,5 +1,5 @@
 import {put} from 'redux-saga/effects';
-import contactService from '../api/movie-service';
+import contactService from '../api/contact-service';
 import { 
   addContactNameError,
   addContactNameRequest,

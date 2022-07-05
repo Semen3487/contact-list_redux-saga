@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import './Form.css';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import {
-  addContactName,
-  deleteContactName,
-  updateContactName
+  addContactNameAction,
+  deleteContactNameAction,
+  updateContactNameAction,
 } from '../../store/actions/toListAction';
+import { useDispatch } from 'react-redux';
 
 
 function Form({
     initFormState,
-    addContactName,
-    deleteContactName,
-    updateContactName
+    // addContactName,
+    // deleteContactName,
+    // updateContactName
   }) {
 
   const [contact, setContact] = useState(initFormState);
   // console.log(initFormState)
+
+  const dispatch = useDispatch();
 
   function onInputChange(event) {
     setContact({
@@ -32,10 +35,10 @@ function Form({
         id: Date.now(),
         ...contact
       }
-      addContactName(newContact);
+      dispatch(addContactNameAction(newContact));
       setContact(initFormState);
     }else{
-      updateContactName({...contact});
+      dispatch(updateContactNameAction({...contact}));
     }
     
     
@@ -51,7 +54,7 @@ function Form({
 
   function toDeleteContact(event) {
     event.preventDefault();
-    deleteContactName(contact.id);
+    dispatch(deleteContactNameAction(contact.id));
     setContact(initFormState);
   };
   
@@ -111,17 +114,17 @@ function Form({
   )
 };
 
-const mapStateToProps = ({initFormState}) => {
-  return {
-    initFormState
-  }
-}
+// const mapStateToProps = ({initFormState}) => {
+//   return {
+//     initFormState
+//   }
+// }
 
-const mapDispatchToProps = {
-  addContactName,
-  deleteContactName,
-  updateContactName
-}
+// const mapDispatchToProps = {
+//   addContactName,
+//   deleteContactName,
+//   updateContactName
+// }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default Form;

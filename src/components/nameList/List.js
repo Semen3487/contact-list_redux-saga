@@ -5,12 +5,11 @@ import './List.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Item from '../nameItem/Item';
 import { 
-  // deleteContactName,
-  backToCreateContact,
+  // deleteContactNameAction,
+  backToCreateContact, getContactsAction,
   // selectContactName,
  } from '../../store/actions/toListAction';
- import contactService from '../api/movie-service';
-import { getContactsSaga } from '../../sagas/contactSagas';
+ 
 
 function List() {
 
@@ -19,10 +18,15 @@ function List() {
   const contacts = useSelector(state => state.contacts);
 
   useEffect(() => {
-    contactService.get('/')
-      .then(({data}) => dispatch(getContactsSaga(data)))
-      .catch(error => console.log(error))
+    dispatch(getContactsAction())
   },[dispatch])
+
+  // useEffect(() => {
+  //   contactService.get('/')
+  //     .then(({data}) => dispatch(getContactsAction(data)))
+  //     .catch(error => console.log(error))
+  // },[dispatch])
+
 
   // const onDelete = (id) => {
   //   deleteContactName(id);
