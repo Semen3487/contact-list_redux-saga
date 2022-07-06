@@ -5,9 +5,9 @@ import './List.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Item from '../nameItem/Item';
 import { 
-  // deleteContactNameAction,
-  backToCreateContact, getContactsAction,
-  // selectContactName,
+  backToCreateContact,
+  deleteContactNameAction,
+  getContactsAction,
  } from '../../store/actions/toListAction';
  
 
@@ -18,23 +18,12 @@ function List() {
   const contacts = useSelector(state => state.contacts);
 
   useEffect(() => {
-    dispatch(getContactsAction())
+    dispatch(getContactsAction());
   },[dispatch])
 
-  // useEffect(() => {
-  //   contactService.get('/')
-  //     .then(({data}) => dispatch(getContactsAction(data)))
-  //     .catch(error => console.log(error))
-  // },[dispatch])
-
-
-  // const onDelete = (id) => {
-  //   deleteContactName(id);
-  // };
-
-  // const onEdit = (contact) => {
-  //   selectContactName(contact)
-  // };
+  const onDelete = (id) => {
+    dispatch(deleteContactNameAction(id));
+  };
 
   const newContact = () => {
     dispatch(backToCreateContact())
@@ -48,8 +37,7 @@ function List() {
             <Item 
                   key={contact.id}
                   contact={contact}
-                  // onDelete={onDelete}
-                  // onEdit={onEdit}
+                  onDelete={onDelete}
             />
           )
         })}
@@ -60,16 +48,5 @@ function List() {
       </div>
   )
 }
-
-// const mapStateToProps = (contacts) => {
-//   return contacts
-// }
-
-// const mapDispatchToProps = {
-//   deleteContactName,
-//   backToCreateContact,
-//   selectContactName
-// }
-
 
 export default List;

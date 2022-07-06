@@ -40,7 +40,6 @@ export function* createContactSaga({payload}){
 export function* updateContactSaga({payload}){
   yield put(updateContactNameRequest());
   try {
-    //* payload.id ???
     const updateContact = yield contactService.put(`/${payload.id}`, payload)
       .then(({data}) => data);
     yield put(updateContactNameSuccess(updateContact));
@@ -52,7 +51,7 @@ export function* updateContactSaga({payload}){
 export function* deleteContactSaga({payload}){
   yield put(deleteContactNameRequest());
   try {
-    yield contactService.post(`/${payload}`);
+    yield contactService.delete(`/${payload}`);
     yield put(deleteContactNameSuccess(payload));
   } catch (error) {
     yield put(deleteContactNameError(error));

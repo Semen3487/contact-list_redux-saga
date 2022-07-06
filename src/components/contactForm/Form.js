@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Form.css';
-// import { connect } from 'react-redux';
 import {
   addContactNameAction,
   deleteContactNameAction,
@@ -9,15 +8,9 @@ import {
 import { useDispatch } from 'react-redux';
 
 
-function Form({
-    initFormState,
-    // addContactName,
-    // deleteContactName,
-    // updateContactName
-  }) {
+function Form({initFormState}) {
 
   const [contact, setContact] = useState(initFormState);
-  // console.log(initFormState)
 
   const dispatch = useDispatch();
 
@@ -38,10 +31,8 @@ function Form({
       dispatch(addContactNameAction(newContact));
       setContact(initFormState);
     }else{
-      dispatch(updateContactNameAction({...contact}));
+      dispatch(updateContactNameAction(contact));
     }
-    
-    
   }
 
   function toClearField(event) {
@@ -55,7 +46,6 @@ function Form({
   function toDeleteContact(event) {
     event.preventDefault();
     dispatch(deleteContactNameAction(contact.id));
-    setContact(initFormState);
   };
   
   return (
@@ -113,18 +103,6 @@ function Form({
     </form>
   )
 };
-
-// const mapStateToProps = ({initFormState}) => {
-//   return {
-//     initFormState
-//   }
-// }
-
-// const mapDispatchToProps = {
-//   addContactName,
-//   deleteContactName,
-//   updateContactName
-// }
 
 
 export default Form;

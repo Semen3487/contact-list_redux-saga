@@ -1,24 +1,23 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteContactNameAction, selectContactName } from '../../store/actions/toListAction';
+import { selectContactName } from '../../store/actions/toListAction';
 import './Item.css';
 
 
-function Item({contact}) {
+function Item({contact, onDelete}) {
 
   const dispatch = useDispatch();
 
   const onContactDelete = (e) => {
     e.stopPropagation();
-    dispatch(deleteContactNameAction(contact.id));
-  }
+    onDelete(contact.id);
+  };
 
   const toEditContact = (e) => {
     e.stopPropagation();
     dispatch(selectContactName(contact));
-  }
+  };
   
-
   return (
     <div className='list-item' 
            onDoubleClick={toEditContact}
@@ -31,6 +30,6 @@ function Item({contact}) {
                >X</span>
     </div>
   )
-}
+};
 
 export default Item;

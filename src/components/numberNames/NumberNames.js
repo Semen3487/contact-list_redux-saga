@@ -1,7 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './NumberNames.css';
 
-function NumberNames({number}) {
+
+function NumberNames() {
+
+  const contacts = useSelector(state => state.contacts);
+
   return (
     <div className='header'>
       <p>
@@ -10,7 +15,7 @@ function NumberNames({number}) {
         </span>
           contains
         <span className='contains-list'>
-          {number}
+          {contacts.length}
         </span>   
           names
       </p>

@@ -7,14 +7,13 @@ import { useSelector } from 'react-redux';
 
 function App() {
 
-  const {contacts, initFormState} = useSelector(state => state);
+  const initFormState = useSelector(state => state.initFormState);
   
-
   return (
     <div className="container">
       <div className="content">
         <header>
-          <NumberNames number={contacts.length} />
+          <NumberNames  />
         </header>
         <main>
           <List />
